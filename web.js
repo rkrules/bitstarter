@@ -10,7 +10,7 @@ app.get('/', function(request, response) {
 	//	response.send(data.toString());
 	//});
 
-response.send(fs.readFileSync('.\index.html').toString());
+response.send(fs.readFileSync('./index.html').toString());
 
 
   });
