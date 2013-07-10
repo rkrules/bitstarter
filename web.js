@@ -2,15 +2,11 @@ var express = require('express');
 var fs = require('fs');
 
 var app = express.createServer(express.logger());
-fs.readFile('/index.html', function(err, data){
-	if (err) throw err;
-	response.send(data.toString());
-});
 
 app.get('/', function(request, response) {
   //response.send('Hello World1!');
-	fs.readFile('/index.html', function(err, data){
-		if (err) throw err;
+	fs.readFileSync('/index.html', function(err, data){
+		if (!err) 
 		response.send(data.toString());
 	});
 
