@@ -5,10 +5,13 @@ var app = express.createServer(express.logger());
 
 app.get('/', function(request, response) {
   //response.send('Hello World1!');
-	fs.readFile('./index.html', function(err, data){
-		if (!err) 
-		response.send(data.toString());
-	});
+	//fs.readFile('./index.html', function(err, data){
+	//	if (!err) 
+	//	response.send(data.toString());
+	//});
+
+response.send(fs.readFileSync().toString());
+
 
   });
 
