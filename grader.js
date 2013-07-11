@@ -26,9 +26,10 @@ var program = require('commander');
 var cheerio = require('cheerio');
 var rest = require('restler');
 var util = require('util');
+require('url');
 var HTMLFILE_DEFAULT = "index.html";
 var CHECKSFILE_DEFAULT = "checks.json";
-
+var urlTrue = 0;
 var assertFileExists = function(infile) {
     var instr = infile.toString();
     
@@ -46,28 +47,10 @@ var cheerioHtmlFile = function(htmlfile) {
 var loadChecks = function(checksfile) {
     return JSON.parse(fs.readFileSync(checksfile));
 };
+var saveURL = function (htmlPath)
+{
+    //var shtmlPath = htmlPath.toString();
 
-var loadHtml = function(htmlPath){
-    var shtmlPath = htmlPath.toString();
-
-	rest.get(shtmlPath).on('complete',function(result, response){
-   
-
-        if (result instanceof Error) {
-            console.error('Error: ' + response);
-        } else {
-            console.error("Wrote %s", result);
-            }
-
-
-	//if (result instanceof Error) {
-	//console.log("%s does not exist URL. Exiting.", htmlPath);
-        //process.exit(1); // http://nodejs.org/api/process.html#process_process_exit_code        
-//	}
-//else return response;
-
-        });
-return htmlPath;
 };
 
 
@@ -79,7 +62,28 @@ var checkHtmlFile = function(htmlfile, checksfile) {
         var present = $(checks[ii]).length > 0;
         out[checks[ii]] = present;
     }
-    return out;
+  
+  return out;
+
+};
+var loadHtml = function(shtmlPath,checksfile){
+	
+        rest.get(shtmlPath).on('complete',function(result, response){
+   
+
+        if (result instanceof Error) {
+            console.error('Error: ' + response);
+        } else {
+            fs.writeFileSync('urlresult.html',result);
+
+	    console.log(JSON.stringify(checkHtmlFile ( 'urlresult.html', checksfile), null, 4));
+  
+
+  	    }
+
+        });
+
+
 };
 
 var clone = function(fn) {
@@ -92,14 +96,28 @@ if(require.main == module) {
     program
         .option('-c, --checks <check_file>', 'Path to checks.json', clone(assertFileExists), CHECKSFILE_DEFAULT)
         .option('-f, --file <html_file>', 'Path to index.html', clone(assertFileExists), HTMLFILE_DEFAULT)
-        .option('-u, --url <url_path>', 'Path to index.html', loadHtml({}),HTMLFILE_DEFAULT)
+        .option('-u, --url <url_path>', 'Path to url')
       
+
         .parse(process.argv);
 
-    
-    var checkJson = checkHtmlFile(program.file, program.checks);
-    var outJson = JSON.stringify(checkJson, null, 4);
+
+
+if (program.url)
+{
+//console.log(program.url);
+  //loadHtml('http://shielded-taiga-8600.herokuapp.com/',program.checks);
+loadHtml(program.url,program.checks);
+}
+else
+{
+  // console.log("file");
+  var checkJson = checkHtmlFile(program.file, program.checks); 
+   var outJson = JSON.stringify(checkJson, null, 4);
     console.log(outJson);
+}
+
+
 } else {
     exports.checkHtmlFile = checkHtmlFile;
 }
