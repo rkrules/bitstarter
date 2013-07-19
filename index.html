@@ -11,6 +11,10 @@
           href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap-2.3.2.css">
     <style type="text/css">
 
+      <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic' rel='stylesheet' type='text/css'>
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+      <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
       @media (min-width: 980px){
       
       body {
@@ -27,7 +31,23 @@
       }
 
 
-
+/* All form and factors*/
+body{
+      font-family: 'Roboto', 'Open Sans', Helvetica, Arial, sans-serif;
+}
+.heading, .subheading{
+font-family: 'Ubuntu',Helvetica, Arial, sans-serif;
+text-align: center;
+}
+p.lead{
+padding-top: 1.5%;
+font-size: 24x;
+line-height:30px;
+}
+p{
+font-size:18px;
+line-height: 24px;
+}
 
       .container {
         width: 960px;
@@ -86,31 +106,24 @@
 
 
 <div class="container">
-      <div class="row navigation">
-        <div class="span2 logo">
-          Logo
-        </div>
-        <div class="span6 blank">
-          Blank
-        </div>
-        <div class="span4 about">
-          About
+       <div class="row-fluid heading">
+        <div class="span12">
+          <h1>Product</h1>
         </div>
       </div>
-      <div class="row heading">
-        <div class="span12">
-          <h1>Bitstarter Title</h1>
-        </div>
-      </div> 
+ 
      <div class="row subheading">
         <div class="span12">
-          <p class="lead">This is my first bitstarter project.</p>
+          <p class="lead">One sentence description.</p>
         </div>
       </div>
-      <div class="row pitch">
-        <div class="span6 video">
-          Video
+      <div class="row-fluid pitch">
+        <div class="span5 offset1 video">
+          Video will be here
+	  <img class="img-polaroid" src="http://placehold.it/480x300">
         </div>
+
+
         <div class="span6">
           <div class="thermometer">
             Thermometer
